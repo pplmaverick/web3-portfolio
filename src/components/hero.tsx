@@ -9,7 +9,7 @@ const TWITTER_HANDLE = "SmsmSmsm87"
 
 export function Hero() {
   const chainCount = new Set(projects.map((p) => p.chain)).size
-  const liveCount = projects.filter((p) => p.network !== "local").length
+  const liveCount = projects.filter((p) => p.frontendUrl).length
 
   return (
     <section className="relative overflow-hidden border-b border-border">

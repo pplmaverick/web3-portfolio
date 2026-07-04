@@ -197,7 +197,7 @@ export const projects: Project[] = [
     name: "Miden Weather Market",
     chain: "Miden",
     chainColor: "#C084FC",
-    tagline: "Client-proved weather bets on a STARK rollup, oracle signature verified inside the proof.",
+    tagline: "Client-proved weather bets on a STARK rollup. Oracle signature verification — planned (Miden rpo_falcon512 roadmap).",
     primitive: "Client-side ZK commitments + in-proof Falcon512 verification",
     primitiveDetail:
       "Bet commitments are Poseidon2 hashes computed in-browser WASM; oracle results are authorized by a Falcon512 post-quantum signature verified via rpo_falcon512_verify inside the ZK proof itself.",

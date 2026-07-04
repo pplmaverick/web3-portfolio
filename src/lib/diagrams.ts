@@ -62,7 +62,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "Chain observers see: bidderPK + sealed hash. Cannot see: amount · salt · secretKey.",
+            text: "Chain observers see: `bidderPK` + sealed hash. Cannot see: `amount` · `salt` · `secretKey`.",
           },
         ],
       },
@@ -96,7 +96,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "Multi-auction architecture: one contract, many concurrent auctions, each with isolated bidCount / highestBid / highestBidderPK.",
+            text: "Multi-auction architecture: one contract, many concurrent auctions, each with isolated `bidCount` / `highestBid` / `highestBidderPK`.",
           },
         ],
       },
@@ -139,6 +139,12 @@ export const diagrams: Record<string, ProjectDiagram> = {
             connectors: ["InEuint64 / InEbool"],
           },
         ],
+        notes: [
+          {
+            text: "`encAmount` (`euint64`) and `msg.value` (`uint256`) are tracked as two separate ledgers — the contract never checks they match. A single bet above ~18.44 ETH worth of wei overflows `euint64`, desyncing the encrypted payout math from the real `market.totalPool`.",
+            warn: true,
+          },
+        ],
       },
       {
         label: "SETTLE — reveal & claim",
@@ -176,7 +182,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "No price oracle yet — outcome set manually via submitResult(); Chainlink integration is on the roadmap.",
+            text: "No price oracle yet — outcome set manually via `submitResult()`; Chainlink integration is on the roadmap.",
             warn: true,
           },
         ],
@@ -223,7 +229,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: 'Double-voting is blocked at the nullifier: reusing a claim fails with "duplicate siloed nullifier" — proven in voting_tests.nr.',
+            text: 'Double-voting is blocked at the nullifier: reusing a claim fails with `"duplicate siloed nullifier"` — proven in `voting_tests.nr`.',
           },
         ],
       },
@@ -283,7 +289,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: 'README describes a Falcon512 oracle-signature check ("M1.5 — completed"), but the deployed settle_market() has no signature verification — Miden 0.15\'s rpo_falcon512_verify only signs the tx commitment, not arbitrary messages. Current trust = wallet-key holder + on-chain time-lock only.',
+            text: 'README describes a Falcon512 oracle-signature check ("M1.5 — completed"), but the deployed `settle_market()` has no signature verification — Miden 0.15\'s `rpo_falcon512_verify` only verifies the signature over the tx commitment, not arbitrary messages. Current trust = wallet-key holder + on-chain time-lock only.',
             warn: true,
           },
         ],
@@ -349,7 +355,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "ERC-8004 IdentityRegistry is deployed standalone — WeatherMarket.sol has zero references to it; the link is off-chain metadata only.",
+            text: "ERC-8004 `IdentityRegistry` is deployed standalone — `WeatherMarket.sol` has zero references to it; the link is off-chain metadata only.",
           },
         ],
       },
@@ -502,7 +508,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "Tempo's 0x76 transaction type is viem's fee-token serializer for gas-in-USDC.e mainnet txs — it belongs to Fee Sponsorship, not the Scheduler.",
+            text: "Tempo's `0x76` transaction type is viem's fee-token serializer for gas-in-USDC.e mainnet txs — it belongs to Fee Sponsorship, not the Scheduler.",
           },
         ],
       },
@@ -550,7 +556,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "CCIPWeatherOracle.sol and the Arc-to-Pharos CCTP bridge are both deployed but not wired live: WeatherMarket.oracle still points at AdminOracle, and the frontend's bridge page is a disabled \"Coming Soon\" stub. The sub-second-finality and cross-chain-CCIP claims in the README aren't yet reflected in what's actually connected on-chain.",
+            text: "`CCIPWeatherOracle.sol` and the Arc-to-Pharos CCTP bridge are both deployed but not wired live: `WeatherMarket.oracle` still points at `AdminOracle`, and the frontend's bridge page is a disabled \"Coming Soon\" stub. The sub-second-finality and cross-chain-CCIP claims in the README aren't yet reflected in what's actually connected on-chain.",
             warn: true,
           },
         ],
@@ -607,7 +613,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "README's own Known Limitations: the public currentSpread input plus the public triggered event let an observer binary-search the private threshold — a real side-channel, not yet fixed.",
+            text: "README's own Known Limitations: the public `currentSpread` input plus the public `triggered` event let an observer binary-search the private threshold — a real side-channel, not yet fixed.",
             warn: true,
           },
         ],
@@ -651,7 +657,8 @@ export const diagrams: Record<string, ProjectDiagram> = {
                 subtitle: "wraps AggregatorV3Interface",
                 lines: [
                   "require(answer > 0)",
-                  "require(now - updatedAt <= 3 days)",
+                  "require(block.timestamp - updatedAt",
+                  "  <= 3 days)",
                 ],
               },
               {
@@ -726,7 +733,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
         ],
         notes: [
           {
-            text: "README describes a microchains architecture — a user's single-owner chain sending a cross-chain PlaceBet message to a shared market chain, with a payout message flowing back — but the deployed contract sets Message = () and execute_message() panics with \"PriceMarket does not support cross-chain messages.\" There's no emit_event! call either. This is a single-chain prototype today, not the microchains design described in the README.",
+            text: "README describes a microchains architecture — a user's single-owner chain sending a cross-chain `PlaceBet` message to a shared market chain, with a payout message flowing back — but the deployed contract sets `Message = ()` and `execute_message()` panics with `\"PriceMarket does not support cross-chain messages\"`. There's no `emit_event!` call either. This is a single-chain prototype today, not the microchains design described in the README.",
             warn: true,
           },
         ],

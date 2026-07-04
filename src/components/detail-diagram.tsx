@@ -89,6 +89,22 @@ function DiagramRow({ row }: { row: DiagramRowData }) {
   return <div className="flex flex-wrap items-center gap-2">{items}</div>
 }
 
+function renderNoteText(text: string): ReactNode[] {
+  return text.split(/(`[^`]+`)/g).map((part, i) => {
+    if (part.length > 1 && part.startsWith("`") && part.endsWith("`")) {
+      return (
+        <code
+          key={i}
+          className="rounded bg-white/10 px-1 py-0.5 font-mono text-foreground"
+        >
+          {part.slice(1, -1)}
+        </code>
+      )
+    }
+    return <span key={i}>{part}</span>
+  })
+}
+
 function DiagramSection({ section }: { section: DiagramSectionData }) {
   return (
     <div className="flex flex-col gap-2">
@@ -114,7 +130,7 @@ function DiagramSection({ section }: { section: DiagramSectionData }) {
               : "border-border text-muted-foreground"
           }`}
         >
-          {note.text}
+          {renderNoteText(note.text)}
         </div>
       ))}
     </div>

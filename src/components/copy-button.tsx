@@ -16,7 +16,7 @@ export function CopyButton({
   return (
     <button
       type="button"
-      aria-label={copied ? "已複製" : "複製地址"}
+      aria-label={copied ? "Copied" : "Copy address"}
       className={cn(
         "shrink-0 cursor-pointer rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground",
         className

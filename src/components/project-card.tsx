@@ -28,10 +28,10 @@ const networkBadgeClass: Record<Project["network"], string> = {
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <Card className="h-full border-border bg-card/60 backdrop-blur-sm ring-0">
+    <Card className="h-full border border-zinc-700 bg-zinc-900 ring-0">
       <CardHeader>
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <span
               aria-hidden
               className="size-2 shrink-0 rounded-full"
@@ -97,7 +97,7 @@ export function ProjectCard({ project }: { project: Project }) {
                       href={contract.explorerUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`在 Explorer 查看 ${contract.label}`}
+                      aria-label={`View ${contract.label} on Explorer`}
                       className="cursor-pointer rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                     >
                       <ExternalLink className="size-3.5" />
@@ -138,12 +138,12 @@ export function ProjectCard({ project }: { project: Project }) {
             className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-secondary"
           >
             <Globe className="size-3.5" />
-            前端 Demo
+            Live Demo
           </a>
         ) : (
           <span className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-border px-2.5 py-1.5 text-xs text-muted-foreground">
             <Globe className="size-3.5" />
-            尚無前端
+            No frontend yet
           </span>
         )}
       </CardFooter>

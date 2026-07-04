@@ -31,18 +31,20 @@ export function Hero() {
 
         <div className="flex flex-col gap-5">
           <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            在每一條新鏈上,第一個用上它
+            The developer who ships the
             <br className="hidden sm:block" />
-            chain-native primitive 的開發者。
+            chain-native primitive first.
           </h1>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            我是 pplmaverick,一名獨立 Web3 開發者。策略很簡單:每當有新鏈或新
-            L1/L2 開放測試網,我會在第一時間部署一個真正用到「該鏈獨有原生功能」的合約
-            ——
-            不是隨便搬一份 ERC-20,而是 Midnight 的 ZK witness、Fhenix 的 FHE
-            加密型別、Ritual 的鏈上 HTTP precompile 這種只有那條鏈才有的東西。
-            這個網站是那些足跡的紀錄:{chainCount} 條鏈、{projects.length}
-            個專案、其中 {liveCount} 個已經有實際部署與可互動的前端。
+            I&apos;m pplmaverick, an independent Web3 developer. The strategy is
+            simple: the moment a new chain or L1/L2 opens a testnet, I ship a
+            contract that actually uses that chain&apos;s unique native
+            feature — not another copy-pasted ERC-20, but things like
+            Midnight&apos;s ZK witnesses, Fhenix&apos;s FHE-encrypted types, or
+            Ritual&apos;s on-chain HTTP precompile — primitives that only exist
+            on that one chain. This site is the record of that footprint:{" "}
+            {chainCount} chains, {projects.length} projects, {liveCount} of
+            them already live with a working, interactive frontend.
           </p>
         </div>
 

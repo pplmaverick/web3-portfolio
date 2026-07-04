@@ -202,7 +202,7 @@ export const projects: Project[] = [
     primitiveDetail:
       "Bet commitments are Poseidon2 hashes computed in-browser WASM; oracle results are authorized by a Falcon512 post-quantum signature verified via rpo_falcon512_verify inside the ZK proof itself.",
     network: "testnet",
-    statusLabel: "Live — Testnet (settlement currently manual)",
+    statusLabel: "Live — Testnet",
     repoUrl: "https://github.com/pplmaverick/miden-weather-market",
     frontendUrl: "https://miden-weather-market.vercel.app",
     contracts: [

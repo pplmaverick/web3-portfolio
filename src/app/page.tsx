@@ -13,11 +13,12 @@ export default function Home() {
             Projects
           </h2>
           <p className="text-sm text-muted-foreground">
-            每張卡片都是一條鏈、一個原生功能、一組合約地址。
+            Each card is one chain, one native primitive, one set of deployed
+            contracts.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}

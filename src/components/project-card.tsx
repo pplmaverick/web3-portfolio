@@ -12,7 +12,9 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { CopyButton } from "@/components/copy-button"
 import { ArchitectureFlow } from "@/components/architecture-flow"
+import { DetailDiagram } from "@/components/detail-diagram"
 import type { Project } from "@/lib/projects"
+import { diagrams } from "@/lib/diagrams"
 import { cn } from "@/lib/utils"
 
 function truncateAddress(address: string) {
@@ -116,6 +118,10 @@ export function ProjectCard({ project }: { project: Project }) {
             </Badge>
           ))}
         </div>
+
+        {diagrams[project.slug] ? (
+          <DetailDiagram diagram={diagrams[project.slug]} />
+        ) : null}
       </CardContent>
 
       <Separator />

@@ -361,4 +361,382 @@ export const diagrams: Record<string, ProjectDiagram> = {
       "Ritual Testnet",
     ],
   },
+
+  "arc-projects": {
+    sections: [
+      {
+        label: "PLACE BET",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "WeatherMarket.sol",
+                subtitle: "placeBet(marketId, bucket, amount)",
+                lines: [
+                  "usdc.transferFrom(sender, this, amount)",
+                  "native USDC precompile — no wrapping",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "SETTLE — two-stage oracle, n8n-triggered",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "process",
+                title: "lockMarket(marketId)",
+                subtitle: "callable by anyone, after lockTime",
+                lines: ["Status: OPEN -> LOCKED"],
+              },
+              {
+                variant: "process",
+                title: "AdminOracle.submitResult(city, temp, id)",
+                subtitle: "onlyOwner",
+                lines: [
+                  "-> WeatherMarket.submitResult(id, temp)",
+                  "onlyOracle-gated",
+                ],
+              },
+            ],
+            connectors: ["n8n: stage 1 -> stage 2"],
+          },
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "claimWinnings(marketId)",
+                lines: [
+                  "payout = amount * netPool / bucketTotal",
+                  "FEE_BPS = 200 (2%), waived if noWinner",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    badges: [
+      "Solidity 0.8.28",
+      "OpenZeppelin 5",
+      "Native USDC (no wrap)",
+      "Arc Testnet",
+    ],
+  },
+
+  "tempo-weather-market": {
+    sections: [
+      {
+        label: "PLACE BET — fee-sponsored",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "placeBet(...) / placeBetFor(..., bettor)",
+                subtitle: "placeBetFor is onlyRelayer",
+                lines: [
+                  "approvedRelayers[msg.sender]",
+                  "gasTankBalance funds relayer gas",
+                ],
+                highlight: "bettor pays zero gas via placeBetFor",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "SCHEDULED LOCK",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "createMarket(...)",
+                subtitle: "native Scheduler precompile",
+                lines: [
+                  "IScheduler(scheduler).schedule(",
+                  "  address(this), lockCallData, lockTime)",
+                ],
+              },
+              {
+                variant: "onchain",
+                title: "lockMarket(marketId)",
+                subtitle: "auto-fires at lockTime",
+                lines: ["m.lockTaskId = taskId"],
+              },
+            ],
+            connectors: ["scheduled taskId"],
+          },
+        ],
+      },
+      {
+        label: "SETTLE — oracle server",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "process",
+                title: "POST /oracle/settle",
+                subtitle: "Node/Express oracle-server",
+                lines: [
+                  "getMaxTempWithSources(city, date)",
+                  "determineOutcome() -> WIN / NO_WINNER",
+                ],
+              },
+              {
+                variant: "onchain",
+                title: "WeatherMarket.submitResult(id, temp, memo)",
+                lines: [
+                  'memo = "{city}/{type}/{temp}/{outcome}"',
+                  "stored as Market.settleMemo, emitted",
+                ],
+              },
+            ],
+            connectors: ["submitResult()"],
+          },
+        ],
+        notes: [
+          {
+            text: "Tempo's 0x76 transaction type is viem's fee-token serializer for gas-in-USDC.e mainnet txs — it belongs to Fee Sponsorship, not the Scheduler.",
+          },
+        ],
+      },
+    ],
+    badges: [
+      "Solidity 0.8.28",
+      "IScheduler precompile",
+      "Fee Sponsorship (gasTank)",
+      "Mainnet + Testnet",
+    ],
+  },
+
+  "pharos-weather-market": {
+    sections: [
+      {
+        label: "PLACE BET — native USDC",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "placeBet(marketId, bucket, amount)",
+                lines: [
+                  "usdc.transferFrom(sender, this, amount)",
+                  "chain 1672 (mainnet) / 688689 (testnet)",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "SETTLE — the path actually live",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "process",
+                title: "lockMarket() -> AdminOracle.submitResult(...)",
+                subtitle: "onlyOwner — same as testnet",
+                lines: ["-> WeatherMarket.submitResult(id, temp)"],
+              },
+            ],
+          },
+        ],
+        notes: [
+          {
+            text: "CCIPWeatherOracle.sol and the Arc-to-Pharos CCTP bridge are both deployed but not wired live: WeatherMarket.oracle still points at AdminOracle, and the frontend's bridge page is a disabled \"Coming Soon\" stub. The sub-second-finality and cross-chain-CCIP claims in the README aren't yet reflected in what's actually connected on-chain.",
+            warn: true,
+          },
+        ],
+      },
+    ],
+    badges: [
+      "Solidity 0.8.28",
+      "AggregatorV3-style oracle",
+      "CCIP + CCTP (deployed, not wired)",
+      "Testnet + Mainnet",
+    ],
+  },
+
+  "seismic-spread-monitor": {
+    sections: [
+      {
+        label: "SET STRATEGY — shielded state",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "client",
+                title: "setStrategy(saddress pair, suint256 threshold)",
+                lines: [
+                  "struct Strategy { saddress pair;",
+                  "  suint256 threshold; bool isActive; }",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "CHECK SPREAD — encrypted VM compare",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "checkSpread(suint256 currentSpread)",
+                lines: [
+                  "bool triggered =",
+                  "  bool(currentSpread >= threshold)",
+                ],
+              },
+              {
+                variant: "onchain",
+                title: "event SpreadAlert(user, triggered)",
+                lines: ["only event in the contract"],
+              },
+            ],
+            connectors: ["emits"],
+          },
+        ],
+        notes: [
+          {
+            text: "README's own Known Limitations: the public currentSpread input plus the public triggered event let an observer binary-search the private threshold — a real side-channel, not yet fixed.",
+            warn: true,
+          },
+        ],
+      },
+    ],
+    badges: [
+      "Seismic Solidity ^0.8.13",
+      "sFoundry (sforge / scast)",
+      "CLI only, no frontend",
+      "Testnet",
+    ],
+  },
+
+  "robinhood-prediction-market": {
+    sections: [
+      {
+        label: "CREATE MARKET — bound to native stock token",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "createMarket(stockToken, priceFeed, symbol, duration)",
+                lines: [
+                  "Market.stockToken = native tokenized equity",
+                  "e.g. TSLA / AMZN / PLTR / AMD / NVDA",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "LOCK / SETTLE — Chainlink price feed",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "process",
+                title: "ChainlinkPriceFeed.latestRoundData()",
+                subtitle: "wraps AggregatorV3Interface",
+                lines: [
+                  "require(answer > 0)",
+                  "require(now - updatedAt <= 3 days)",
+                ],
+              },
+              {
+                variant: "onchain",
+                title: "lockMarket() / settleMarket()",
+                lines: [
+                  "openPrice / closePrice snapshotted",
+                  "winner = closePrice >= openPrice ? BULL : BEAR",
+                ],
+              },
+            ],
+            connectors: ["latestRoundData()"],
+          },
+        ],
+      },
+      {
+        label: "CLAIM — parimutuel",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "claimWinnings()",
+                lines: [
+                  "fee = totalPool * 200 / 10000 (2%)",
+                  "payout = (totalPool - fee) * bet / winnerPool",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    badges: [
+      "Solidity ^0.8.20",
+      "AggregatorV3Interface",
+      "Robinhood Chain Mainnet",
+      "5 stock markets live",
+    ],
+  },
+
+  "linera-price-market": {
+    sections: [
+      {
+        label: "OPERATIONS — single chain today",
+        rows: [
+          {
+            boxes: [
+              {
+                variant: "onchain",
+                title: "Operation enum",
+                lines: [
+                  "CreateRound { asset,",
+                  "  duration_secs, start_price }",
+                  "PlaceBet { round_id,",
+                  "  direction, amount }",
+                  "ResolveRound { round_id, final_price }",
+                  "Claim { round_id }",
+                ],
+              },
+              {
+                variant: "onchain",
+                title: "PriceMarket state",
+                lines: [
+                  "rounds: MapView<u64, Round>",
+                  "Round { bets: Vec<Bet>,",
+                  "  status, deadline }",
+                ],
+              },
+            ],
+          },
+        ],
+        notes: [
+          {
+            text: "README describes a microchains architecture — a user's single-owner chain sending a cross-chain PlaceBet message to a shared market chain, with a payout message flowing back — but the deployed contract sets Message = () and execute_message() panics with \"PriceMarket does not support cross-chain messages.\" There's no emit_event! call either. This is a single-chain prototype today, not the microchains design described in the README.",
+            warn: true,
+          },
+        ],
+      },
+    ],
+    badges: [
+      "Rust → wasm32-unknown-unknown",
+      "linera-sdk 0.15",
+      "Single-chain (microchains planned)",
+      "Testnet (Conway)",
+    ],
+  },
 }

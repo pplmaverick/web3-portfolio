@@ -50,7 +50,7 @@ function DiagramBox({ box }: { box: DiagramBoxData }) {
           {box.lines.map((line, i) => (
             <div
               key={i}
-              className={`whitespace-pre rounded border px-1.5 py-1 font-mono text-[9.5px] leading-snug ${style.line}`}
+              className={`whitespace-pre-wrap break-words rounded border px-1.5 py-1 font-mono text-[9.5px] leading-snug ${style.line}`}
             >
               {line}
             </div>

@@ -124,7 +124,7 @@ export const projects: Project[] = [
     tagline: "Weather prediction market settled directly in native USDC.",
     primitive: "Native USDC precompile + ERC-8004 agent",
     primitiveDetail:
-      "Bets settle in USDC via Arc's native precompile (no bridging/wrapping); a registered ERC-8004 agent (id 6762) can read state and place bets programmatically.",
+      "Bets settle in USDC via Arc's native precompile (no bridging/wrapping); a separately registered ERC-8004 agent identity (id 6762) exists as off-chain metadata — WeatherMarket.sol has no on-chain dependency on it.",
     network: "testnet",
     statusLabel: "Live — Testnet",
     repoUrl: "https://github.com/pplmaverick/arc-projects",
@@ -226,10 +226,10 @@ export const projects: Project[] = [
     name: "Pharos Weather Market",
     chain: "Pharos",
     chainColor: "#2DD4BF",
-    tagline: "High-throughput weather market bridging native USDC via CCTP, settled by Chainlink CCIP.",
-    primitive: "Sub-second finality + CCTP native USDC + Chainlink CCIP oracle",
+    tagline: "High-throughput weather market on Pharos — CCIP oracle and CCTP bridging are deployed but not yet wired live.",
+    primitive: "Native USDC settlement + CCIP/CCTP (deployed, not yet live)",
     primitiveDetail:
-      "USDC arrives via Arc Bridge Kit's burn-and-mint CCTP (no wrapped asset); settlement upgraded from an admin-gated oracle to CCIPWeatherOracle, which receives allowlisted Chainlink CCIP messages from Ethereum, Base, Polygon and Jovay.",
+      "Bets settle directly in USDC on Pharos. A CCIPWeatherOracle contract and an Arc-to-Pharos CCTP bridge script both exist in the repo, but the live settlement path still runs through the same single-owner AdminOracle used on testnet, and the frontend's bridge page is a disabled placeholder.",
     network: "mainnet",
     statusLabel: "Live — Mainnet + Testnet",
     repoUrl: "https://github.com/pplmaverick/pharos-weather-market",
@@ -256,11 +256,11 @@ export const projects: Project[] = [
     ],
     techStack: ["Solidity 0.8.28", "OpenZeppelin 5", "Hardhat 3", "React 18", "wagmi 2 / viem 2"],
     flow: [
-      { label: "React + wagmi", sub: "bridge USDC via CCTP" },
-      { label: "WeatherMarket.sol", sub: "Pharos parallel execution" },
-      { label: "CCIPWeatherOracle", sub: "Chainlink CCIP cross-chain" },
+      { label: "React + wagmi", sub: "native USDC bets" },
+      { label: "WeatherMarket.sol", sub: "Pharos testnet + mainnet" },
+      { label: "AdminOracle", sub: "single-owner (the live path)" },
     ],
-    flowNote: "Mainnet upgraded past single-owner AdminOracle to CCIP-delivered results — removing single-key settlement trust.",
+    flowNote: "CCIPWeatherOracle and the CCTP bridge are deployed on mainnet but not wired into WeatherMarket.oracle yet — the settlement path actually in use is the same admin-gated oracle as testnet.",
   },
   {
     slug: "seismic-spread-monitor",
@@ -358,12 +358,12 @@ export const projects: Project[] = [
     name: "Linera Price Market",
     chain: "Linera",
     chainColor: "#FACC15",
-    tagline: "Price market where every user runs their own microchain in parallel.",
-    primitive: "Microchains + cross-chain async messaging",
+    tagline: "Price market on Linera — the microchains cross-chain design is the roadmap, not what's deployed today.",
+    primitive: "Single-chain price market (microchains architecture planned)",
     primitiveDetail:
-      "Each user's single-owner microchain sends a PlaceBet message to a shared multi-owner market microchain; BTC/ETH/SOL rounds run as independent state with no shared-contract contention.",
+      "CreateRound/PlaceBet/ResolveRound/Claim all run on one chain today. The README's user-microchain-to-market-microchain messaging design is the intended architecture, but the deployed contract sets Message = () and execute_message() panics — there is no cross-chain messaging yet.",
     network: "testnet",
-    statusLabel: "Contracts only — CLI / GraphQL, no frontend",
+    statusLabel: "Contracts only — single-chain prototype, no frontend",
     repoUrl: "https://github.com/pplmaverick/linera-price-market",
     contracts: [
       {
@@ -374,10 +374,9 @@ export const projects: Project[] = [
     ],
     techStack: ["Rust → wasm32-unknown-unknown", "linera-sdk 0.15", "async-graphql"],
     flow: [
-      { label: "User microchain", sub: "PlaceBet message" },
-      { label: "Market microchain", sub: "PriceMarket contract" },
-      { label: "Payout message", sub: "back to user chain" },
+      { label: "CLI / GraphQL service", sub: "linera service --port 8080" },
+      { label: "PriceMarket contract", sub: "single chain today" },
     ],
-    flowNote: "Conway testnet's http_request_allow_list currently blocks the CoinGecko oracle call — prices are fed in by a bot instead.",
+    flowNote: "Cross-chain microchain messaging, emit_event!, and the payout-message flow are described in the README as the intended design but aren't implemented in contract.rs yet — Message = () and execute_message() panics. CoinGecko calls are also blocked by Conway testnet's http_request_allow_list, so prices are fed in by an external bot via ResolveRound.",
   },
 ]

@@ -1,11 +1,9 @@
 import { Badge } from "@/components/ui/badge"
-import { GitHubIcon, XIcon } from "@/components/icons"
 import { CopyButton } from "@/components/copy-button"
+import { SocialLinks } from "@/components/social-links"
 import { projects } from "@/lib/projects"
 
 const DEV_WALLET = "0xed2B5717c9b936ecC76d75401026A99143e278F5"
-const GITHUB_HANDLE = "pplmaverick"
-const TWITTER_HANDLE = "SmsmSmsm87"
 
 export function Hero() {
   const chainCount = new Set(projects.map((p) => p.chain)).size
@@ -49,24 +47,7 @@ export function Hero() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <a
-            href={`https://github.com/${GITHUB_HANDLE}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-border bg-secondary/60 px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-          >
-            <GitHubIcon className="size-4" />
-            @{GITHUB_HANDLE}
-          </a>
-          <a
-            href={`https://twitter.com/${TWITTER_HANDLE}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-border bg-secondary/60 px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-          >
-            <XIcon className="size-4" />
-            @{TWITTER_HANDLE}
-          </a>
+          <SocialLinks />
           <div className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary/30 py-2 pr-1.5 pl-3.5">
             <span className="text-sm text-muted-foreground">Dev Wallet</span>
             <span className="font-mono text-sm text-foreground">

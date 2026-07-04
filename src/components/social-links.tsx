@@ -25,7 +25,7 @@ const links = [
 
 export function SocialLinks() {
   return (
-    <div className="flex w-full flex-col gap-3 sm:flex-row">
+    <>
       {links.map((link) => (
         <a
           key={link.href}
@@ -33,12 +33,12 @@ export function SocialLinks() {
           target="_blank"
           rel="noopener noreferrer"
           style={link.style}
-          className={`inline-flex h-14 flex-1 cursor-pointer items-center justify-center gap-2 rounded-full text-sm font-semibold transition-opacity ${link.className}`}
+          className={`inline-flex cursor-pointer items-center gap-2 rounded-md px-3.5 py-2 text-sm font-medium transition-colors ${link.className}`}
         >
           <link.icon className="size-4" />
           {link.label}
         </a>
       ))}
-    </div>
+    </>
   )
 }

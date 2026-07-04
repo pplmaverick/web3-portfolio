@@ -1,6 +1,5 @@
 import { Hero } from "@/components/hero"
 import { ProjectCard } from "@/components/project-card"
-import { SocialLinks } from "@/components/social-links"
 import { projects } from "@/lib/projects"
 
 export default function Home() {
@@ -27,17 +26,14 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10 sm:px-8">
-          <SocialLinks />
-          <div className="flex flex-col gap-2 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-            <span>
-              © {new Date().getFullYear()} pplmaverick — built via Vibe Coding
-              (Claude Code)
-            </span>
-            <span className="font-mono">
-              MacBook Air M3 · iMac M1 · Hetzner VPS
-            </span>
-          </div>
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <span>
+            © {new Date().getFullYear()} pplmaverick — built via Vibe Coding
+            (Claude Code)
+          </span>
+          <span className="font-mono">
+            MacBook Air M3 · iMac M1 · Hetzner VPS
+          </span>
         </div>
       </footer>
     </div>

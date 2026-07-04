@@ -15,3 +15,11 @@ export function XIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function TelegramIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
+      <path d="M21.5 3.5 2.6 11c-.9.36-.9 1.65.03 1.96l4.53 1.5 1.75 5.6c.22.7 1.1.9 1.62.36l2.4-2.5 4.7 3.47c.7.52 1.7.13 1.87-.73l3.1-15.02c.2-.94-.75-1.7-1.6-1.34ZM8.7 13.9l9.3-6.1c.2-.13.42.13.24.3l-7.7 7.13c-.3.28-.5.66-.55 1.07l-.24 2.02-1.05-4.42Z" />
+    </svg>
+  )
+}

@@ -198,9 +198,9 @@ export const projects: Project[] = [
     chain: "Miden",
     chainColor: "#C084FC",
     tagline: "Client-proved weather bets on a STARK rollup. Oracle signature verification — planned (Miden rpo_falcon512 roadmap).",
-    primitive: "Client-side ZK commitments + in-proof Falcon512 verification",
+    primitive: "Client-side ZK commitments + Poseidon2 hashing",
     primitiveDetail:
-      "Bet commitments are Poseidon2 hashes computed in-browser WASM; oracle results are authorized by a Falcon512 post-quantum signature verified via rpo_falcon512_verify inside the ZK proof itself.",
+      "Bet commitments are Poseidon2 hashes computed in-browser WASM, keeping the user's secret local to the device. Oracle signature verification via rpo_falcon512 is planned for a future milestone.",
     network: "testnet",
     statusLabel: "Live — Testnet",
     repoUrl: "https://github.com/pplmaverick/miden-weather-market",

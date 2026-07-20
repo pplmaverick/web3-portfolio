@@ -76,9 +76,9 @@ export const projects: Project[] = [
     contracts: [
       {
         label: "ConfidentialPredictionMarket",
-        address: "0x79Dc91B97979E8d3cD6A56039EB2C282163b02aB",
+        address: "0x9DE6ba0f6901e366BbCf373F7c8F63b5c955138d",
         explorerUrl:
-          "https://sepolia.arbiscan.io/address/0x79Dc91B97979E8d3cD6A56039EB2C282163b02aB",
+          "https://sepolia.arbiscan.io/address/0x9DE6ba0f6901e366BbCf373F7c8F63b5c955138d",
       },
       {
         label: "MarketFactory",

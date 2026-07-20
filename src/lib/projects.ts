@@ -35,7 +35,7 @@ export const projects: Project[] = [
     name: "Midnight Private Auction",
     chain: "Midnight",
     chainColor: "#A78BFA",
-    tagline: "Sealed-bid auction where bid amounts never touch the chain in plaintext.",
+    tagline: "Sealed-bid auction — bid amounts stay hidden until reveal, then disclosed on-chain via commit-reveal.",
     primitive: "Compact witnesses + commit-reveal ZK",
     primitiveDetail:
       "Bids are hashed client-side (secret key, amount, salt) inside a Compact circuit into a single commitment; disclose() only publishes the amount at reveal time.",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
           "https://explorer.1am.xyz/contract/872becfbc9d3142273c5dc5b7b1df5dae0fd0ee467c8857ea4e97f9a0408c21b",
       },
     ],
-    techStack: ["Compact 0.20", "midnight-js SDK", "React 19", "Vite", "Tailwind 4"],
+    techStack: ["Compact 0.23", "midnight-js SDK", "React 19", "Vite", "Tailwind 4"],
     flow: [
       { label: "React frontend", sub: "in-browser ZK proving" },
       { label: "Compact contract", sub: "Midnight ledger" },
@@ -104,17 +104,23 @@ export const projects: Project[] = [
     primitive: "Noir ZK circuits + nullifier-based privacy",
     primitiveDetail:
       "A Noir circuit proves cast_vote() validity client-side; a SingleUseClaim nullifier blocks double-voting while the choice itself never leaves the device.",
-    network: "local",
-    statusLabel: "In progress — local network only",
+    network: "testnet",
+    statusLabel: "Live — Testnet",
     repoUrl: "https://github.com/pplmaverick/aztec-private-voting",
-    contracts: [],
-    techStack: ["Noir 1.0.0-beta.21", "aztec-nr v4.3.1", "Barretenberg (UltraHonk)"],
+    contracts: [
+      {
+        label: "PrivateVoting",
+        address:
+          "0x2264d5c685966bfb075173b9423293bfaaac2a27fd80f07547812515e789f7ed",
+      },
+    ],
+    techStack: ["Noir 1.0.0-beta.22", "aztec-nr v5.0.0", "Barretenberg (UltraHonk)"],
     flow: [
       { label: "Noir circuit", sub: "client-side proof" },
       { label: "cast_vote + nullifier", sub: "private call" },
       { label: "Public tally", sub: "PublicMutable map" },
     ],
-    flowNote: "11/11 contract tests passing. Testnet deployment and React frontend are planned for M2, pending Aztec V5.",
+    flowNote: "11/11 contract tests passing, deployed to Aztec Testnet with a full e2e run (create_poll → cast_vote → end_poll) verified on-chain. React frontend is still planned.",
   },
   {
     slug: "arc-projects",
@@ -197,7 +203,7 @@ export const projects: Project[] = [
     name: "Miden Weather Market",
     chain: "Miden",
     chainColor: "#C084FC",
-    tagline: "Client-proved weather bets on a STARK rollup. Oracle signature verification — planned (Miden rpo_falcon512 roadmap).",
+    tagline: "Weather bets on a STARK rollup — client-side bet commitments, CLI-assisted proving. Oracle signature verification — planned (Miden rpo_falcon512 roadmap).",
     primitive: "Client-side ZK commitments + Poseidon2 hashing",
     primitiveDetail:
       "Bet commitments are Poseidon2 hashes computed in-browser WASM, keeping the user's secret local to the device. Oracle signature verification via rpo_falcon512 is planned for a future milestone.",
@@ -334,7 +340,7 @@ export const projects: Project[] = [
     primitiveDetail:
       "createMarket() binds each market directly to the on-chain address of a Robinhood Chain tokenized stock; settlement reads Chainlink price feed wrappers mirroring AggregatorV3Interface.",
     network: "mainnet",
-    statusLabel: "Live — Mainnet (since 2026-07-01)",
+    statusLabel: "Live — Mainnet (since 2026-07-03)",
     repoUrl: "https://github.com/pplmaverick/robinhood-prediction-market",
     frontendUrl: "https://frontend-tau-azure-50.vercel.app",
     contracts: [
@@ -345,7 +351,7 @@ export const projects: Project[] = [
           "https://robinhoodchain.blockscout.com/address/0x72DAb8B1B53b3CF028e9A0d1E21178981f264245",
       },
     ],
-    techStack: ["Solidity ^0.8.20", "Hardhat 3", "ethers.js", "React 18", "wagmi 2 / viem"],
+    techStack: ["Solidity ^0.8.20", "Hardhat 2", "ethers.js", "React 18", "wagmi 2 / viem"],
     flow: [
       { label: "React + wagmi", sub: "BULL / BEAR pools" },
       { label: "StockPredictionMarket.sol", sub: "bound to stock token" },

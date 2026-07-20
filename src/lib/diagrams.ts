@@ -235,10 +235,10 @@ export const diagrams: Record<string, ProjectDiagram> = {
       },
     ],
     badges: [
-      "Noir 1.0.0-beta.21",
-      "aztec-nr v4.3.1",
+      "Noir 1.0.0-beta.22",
+      "aztec-nr v5.0.0",
       "Barretenberg (UltraHonk)",
-      "Local network only",
+      "Aztec Testnet",
     ],
   },
 

@@ -104,14 +104,14 @@ export const projects: Project[] = [
     primitive: "Noir ZK circuits + nullifier-based privacy",
     primitiveDetail:
       "A Noir circuit proves cast_vote() validity client-side; a SingleUseClaim nullifier blocks double-voting while the choice itself never leaves the device.",
-    network: "testnet",
-    statusLabel: "Live — Testnet",
+    network: "mainnet",
+    statusLabel: "Live — Mainnet",
     repoUrl: "https://github.com/pplmaverick/aztec-private-voting",
     contracts: [
       {
         label: "PrivateVoting",
         address:
-          "0x2264d5c685966bfb075173b9423293bfaaac2a27fd80f07547812515e789f7ed",
+          "0x25bb47296b98070aaef61167a966cc6416d8a3f7b18b285796b7fd47c1a3e38e",
       },
     ],
     techStack: ["Noir 1.0.0-beta.22", "aztec-nr v5.0.0", "Barretenberg (UltraHonk)"],
@@ -120,7 +120,7 @@ export const projects: Project[] = [
       { label: "cast_vote + nullifier", sub: "private call" },
       { label: "Public tally", sub: "PublicMutable map" },
     ],
-    flowNote: "11/11 contract tests passing, deployed to Aztec Testnet with a full e2e run (create_poll → cast_vote → end_poll) verified on-chain. React frontend is still planned.",
+    flowNote: "11/11 contract tests passing. Deployed first to Aztec Testnet, then to Alpha Mainnet (v5.0.1, post AZUP-2) with a full create_poll/cast_vote/end_poll e2e run verified on-chain. Aztec Ecosystem Grant application in progress; React frontend still planned.",
   },
   {
     slug: "arc-projects",

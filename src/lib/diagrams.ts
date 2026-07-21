@@ -238,7 +238,7 @@ export const diagrams: Record<string, ProjectDiagram> = {
       "Noir 1.0.0-beta.22",
       "aztec-nr v5.0.0",
       "Barretenberg (UltraHonk)",
-      "Aztec Testnet",
+      "Aztec Alpha Mainnet",
     ],
   },
 

@@ -47,12 +47,12 @@ export const projects: Project[] = [
       {
         label: "Auction Contract",
         address:
-          "872becfbc9d3142273c5dc5b7b1df5dae0fd0ee467c8857ea4e97f9a0408c21b",
+          "4fd31443997bd04bbf0b94e2ef3d5b0ff05479c4fb80bcac0dc74b2c763282e5",
         explorerUrl:
-          "https://explorer.1am.xyz/contract/872becfbc9d3142273c5dc5b7b1df5dae0fd0ee467c8857ea4e97f9a0408c21b",
+          "https://explorer.1am.xyz/contract/4fd31443997bd04bbf0b94e2ef3d5b0ff05479c4fb80bcac0dc74b2c763282e5",
       },
     ],
-    techStack: ["Compact 0.23", "midnight-js SDK", "React 19", "Vite", "Tailwind 4"],
+    techStack: ["Compact 0.20", "midnight-js SDK", "React 19", "Vite", "Tailwind 4"],
     flow: [
       { label: "React frontend", sub: "in-browser ZK proving" },
       { label: "Compact contract", sub: "Midnight ledger" },

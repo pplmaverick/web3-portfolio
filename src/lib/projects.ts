@@ -52,7 +52,7 @@ export const projects: Project[] = [
           "https://explorer.1am.xyz/contract/4fd31443997bd04bbf0b94e2ef3d5b0ff05479c4fb80bcac0dc74b2c763282e5",
       },
     ],
-    techStack: ["Compact 0.20", "midnight-js SDK", "React 19", "Vite", "Tailwind 4"],
+    techStack: ["Compact 0.23", "midnight-js SDK", "React 19", "Vite", "Tailwind 4"],
     flow: [
       { label: "React frontend", sub: "in-browser ZK proving" },
       { label: "Compact contract", sub: "Midnight ledger" },

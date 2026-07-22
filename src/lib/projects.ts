@@ -134,7 +134,7 @@ export const projects: Project[] = [
     network: "testnet",
     statusLabel: "Live — Testnet",
     repoUrl: "https://github.com/pplmaverick/arc-projects",
-    frontendUrl: "https://arc-projects.vercel.app",
+    frontendUrl: "https://presage-arc.vercel.app",
     contracts: [
       {
         label: "WeatherMarket",

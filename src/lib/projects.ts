@@ -124,10 +124,10 @@ export const projects: Project[] = [
   },
   {
     slug: "arc-projects",
-    name: "Arc Weather Market",
+    name: "Presage",
     chain: "Arc (Circle)",
     chainColor: "#22D3EE",
-    tagline: "Weather prediction market settled directly in native USDC.",
+    tagline: "Presage — On-chain prediction markets, built on Arc. Weather is just the beginning.",
     primitive: "Native USDC precompile + ERC-8004 agent",
     primitiveDetail:
       "Bets settle in USDC via Arc's native precompile (no bridging/wrapping); a separately registered ERC-8004 agent identity (id 6762) exists as off-chain metadata — WeatherMarket.sol has no on-chain dependency on it.",

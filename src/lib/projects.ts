@@ -120,7 +120,7 @@ export const projects: Project[] = [
       { label: "cast_vote + nullifier", sub: "private call" },
       { label: "Public tally", sub: "PublicMutable map" },
     ],
-    flowNote: "11/11 contract tests passing. Deployed first to Aztec Testnet, then to Alpha Mainnet (v5.0.1, post AZUP-2) with a full create_poll/cast_vote/end_poll e2e run verified on-chain. Aztec Ecosystem Grant application in progress; React frontend still planned.",
+    flowNote: "11/11 contract tests passing. Deployed first to Aztec Testnet, then to Alpha Mainnet (v5.0.1, post AZUP-2) with a full create_poll/cast_vote/end_poll e2e run verified on-chain. React frontend in progress.",
   },
   {
     slug: "arc-projects",
